@@ -1,109 +1,120 @@
-import React from 'react'
-import { Container, Form,Row,Col } from 'react-bootstrap'
+import React, { useState } from "react";
+import Select from "react-select";
 
-class QuestionForm extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            question:'',
-            selection:'',
-            radioValue:[],
-            checkValue:[],
-            shortAnswer:'',
-            multiple:'',
-            checkbox:'',
+const data = [
+    {
+        value: "Short Answer",
+        label: "Short Answer",
+    },
+    {
+        value: "Multiple choice",
+        label: "Multiple choice",
+    },
+    {
+        value: "Checkboxes",
+        label: "Checkboxes",
+    },
+];
+
+const QuestionForm = () => {
+    const [allOptions, setAllOptions] = useState([{ type: "text", value: "" }]);
+    const handleChange = (e) => {
+        console.log(e.value);
+        if (e.value === "Short Answer")
+            setAllOptions([{ type: "text", value: "" }]);
+        else if (e.value === "Multiple choice") {
+            setAllOptions([{ type: "radio", value: "" }]);
+        } else {
+            setAllOptions([{ type: "checkbox", value: "" }]);
         }
-    }
-    handleChange=(e)=>{
-        this.setState({[e.target.name]:e.target.value})
-    }
-    render(){
-        console.log('state value',this.state)
-        return(
-            <div className='mt-5'>
-                <Container>
-                    <Form>
-                        <Row>
-                            <Col md={8}>
-                                <Form.Group controlId='formBasicQuestion'>
-                                    <Form.Control 
-                                        type='text' 
-                                        name='question'
-                                        value={this.state.question} 
-                                        onChange={this.handleChange} 
-                                        placeholder='Question' 
-                                        size='lg'
-                                        required
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col md={4}>
-                                <Form.Group controlId="answerType">
-                                    <Form.Label></Form.Label>
-                                    <Form.Control as="select" name='selection' value={this.state.selection} onChange={this.handleChange}>
-                                        <option value=''>Select your answer type</option>
-                                        <option value='shortAnswer'>Short Answer</option>
-                                        <option value='multiple'>Multiple Choice</option>
-                                        <option value='checkbox'>Check Boxes</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                        </Row>
+    };
+    let option = allOptions.map((e) => {
+        switch (e.type) {
+            case "text":
+                return (
+                    <input
+                        type="text"
+                        placeholder="Short answer text"
+                    />
+                );
 
-                        {
-                            (this.state.selection=='shortAnswer')?(
-                                <div>
-                                    <Row>
-                                        <Col md={8}>
-                                            <Form.Group controlId='formBasicShortAnswer'>
-                                                <Form.Control 
-                                                    type='text' 
-                                                    name='shortAnswer'
-                                                    value={this.state.shortAnswer} 
-                                                    onChange={this.handleChange} 
-                                                    placeholder='Short answer text' 
-                                                    size='lg'
-                                                    required
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    
-                                </div>
-                            ):(this.state.selection=='multiple')?(
-                            <div>
-                               <Form.Group controlId='formBasicMultiple'>
-                                    <Form.Check inline label='option 1'
-                                        type='radio' 
-                                        name='multilpe'
-                                        value={this.state.multiple} 
-                                        onChange={this.handleChange}  
-                                        size='lg'
-                                        required
-                                    />
-                                    </Form.Group> 
-                            </div>
-                            ):(this.state.selection=='checkbox')?(
-                                <div>
-                                   <Form.Group controlId='formBasicCheckbox'>
-                                        <Form.Check inline label='option 1'
-                                            type='checkbox' 
-                                            name='checkbox'
-                                            value={this.state.checkbox} 
-                                            onChange={this.handleChange}  
-                                            size='lg'
-                                            required
-                                        />{
+            case "radio":
+                return (
+                    <div>
+                        <input type="radio" id="rad" value={e} />
+                        <input
+                            type="text"
+                            placeholder="write something"
+                        />
+                    </div>
+                );
 
-                                        }
-                                        </Form.Group> 
-                                </div>
-                                ):''
-                        }
-                    </Form>
-                </Container>
+            case "checkbox":
+                return (
+                    <div>
+                        <input type="checkbox" id="rad" value={e} />
+                        <input
+                            type="text"
+                            placeholder="write something"
+                        />
+                    </div>
+                );
+
+            default:
+                return null;
+        }
+    });
+
+    const addSameOption = () => {
+        console.log(allOptions);
+        setAllOptions([...allOptions, { type: allOptions[0].type, value: "" }]);
+    };
+    const addTextOption = () => {
+        setAllOptions([...allOptions, { type: "text", value: "" }]);
+    };
+    let addOther =
+        allOptions[allOptions.length - 1].type !== "text" &&
+        allOptions.length < 5 ? (
+            <div>
+                <input type={allOptions[0].type} />
+                <span
+                    onClick={addSameOption}
+                   
+                    role="button"
+                >
+                    Add option or
+                </span>
+                <span
+                   
+                    onClick={addTextOption}
+                  
+                    role="button"
+                >
+                    {" "}
+                    add &quot;Other&quot;
+                </span>
             </div>
-        )
-    }
-}
-export default QuestionForm
+        ) : null;
+
+    return (
+        <div>
+            <div >
+                <input
+                    id="form-title"
+                    placeholder="Question title"
+                />
+                {option}
+                {addOther}
+            </div>
+            <div>
+                <Select
+                    defaultValue={data[0]}
+                    options={data}
+                    onChange={handleChange}
+                />
+            </div>
+        </div>
+    );
+};
+
+export default QuestionForm;
