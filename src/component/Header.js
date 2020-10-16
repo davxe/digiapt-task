@@ -12,21 +12,22 @@ class Header extends React.Component{
     }
     render(){
         return (
-            <div>            
+            <div className='root'>            
                 <input
                     type='text' 
                     name='title'
+                    className='title'
                     value={this.state.title} 
                     onChange={this.handleChange} 
-                    placeholder='form title' 
+                    placeholder='Form title' 
                 />
                 <input 
                     type='text'
                     name='description'
+                    className='description'
                     value={this.state.description}
                     onChange={this.handleChange}
-                    placeholder='form description'
-                    required
+                    placeholder='Form description'
                 />
             </div>
         )

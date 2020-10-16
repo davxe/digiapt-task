@@ -5,7 +5,7 @@ import Header from './component/Header';
 import QuestionForm from './component/Form';
 function App() {
   return (
-    <div className="App">
+    <div className="main">
       <Header/>
       <QuestionForm/>
     </div>

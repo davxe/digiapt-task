@@ -34,6 +34,7 @@ const QuestionForm = () => {
                 return (
                     <input
                         type="text"
+                        className='short'
                         placeholder="Short answer text"
                     />
                 );
@@ -44,6 +45,7 @@ const QuestionForm = () => {
                         <input type="radio" id="rad" value={e} />
                         <input
                             type="text"
+                            className='option_text'
                             placeholder="write something"
                         />
                     </div>
@@ -55,6 +57,7 @@ const QuestionForm = () => {
                         <input type="checkbox" id="rad" value={e} />
                         <input
                             type="text"
+                            className='option_text'
                             placeholder="write something"
                         />
                     </div>
@@ -66,7 +69,7 @@ const QuestionForm = () => {
     });
 
     const addSameOption = () => {
-        console.log(allOptions);
+        // console.log(allOptions);
         setAllOptions([...allOptions, { type: allOptions[0].type, value: "" }]);
     };
     const addTextOption = () => {
@@ -75,11 +78,11 @@ const QuestionForm = () => {
     let addOther =
         allOptions[allOptions.length - 1].type !== "text" &&
         allOptions.length < 5 ? (
-            <div>
+            <div className='option'>
                 <input type={allOptions[0].type} />
                 <span
                     onClick={addSameOption}
-                   
+                    className='option_item'
                     role="button"
                 >
                     Add option or
@@ -87,7 +90,7 @@ const QuestionForm = () => {
                 <span
                    
                     onClick={addTextOption}
-                  
+                    className='blue'
                     role="button"
                 >
                     {" "}
@@ -97,11 +100,12 @@ const QuestionForm = () => {
         ) : null;
 
     return (
-        <div>
-            <div >
+        <div className='question_root'>
+            <div className='title_wrapper'>
                 <input
                     id="form-title"
                     placeholder="Question title"
+                    className='question_title'
                 />
                 {option}
                 {addOther}
@@ -110,6 +114,7 @@ const QuestionForm = () => {
                 <Select
                     defaultValue={data[0]}
                     options={data}
+                    className='select_wrapper'
                     onChange={handleChange}
                 />
             </div>
