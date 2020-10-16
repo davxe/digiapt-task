@@ -7,8 +7,6 @@ class QuestionForm extends React.Component{
         this.state={
             question:'',
             selection:'',
-            radioValue:[],
-            checkValue:[],
             shortAnswer:'',
             multiple:'',
             checkbox:'',
@@ -33,7 +31,6 @@ class QuestionForm extends React.Component{
                                         onChange={this.handleChange} 
                                         placeholder='Question' 
                                         size='lg'
-                                        required
                                     />
                                 </Form.Group>
                             </Col>
@@ -62,7 +59,6 @@ class QuestionForm extends React.Component{
                                                     onChange={this.handleChange} 
                                                     placeholder='Short answer text' 
                                                     size='lg'
-                                                    required
                                                 />
                                             </Form.Group>
                                         </Col>
@@ -84,8 +80,7 @@ class QuestionForm extends React.Component{
                                         tabIndex={-2}
                                         role="button"
                                     >
-                                        {" "}
-                                        add &quot;Other&quot;
+                                        &nbsp;add &quot;Other&quot;
                                     </span>
                                 </Form.Group> 
                             </div>
