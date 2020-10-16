@@ -1,3 +1,4 @@
+/* app */
 .root {
   widows: 100%;
   border-top: 0.5rem solid #664df7;
@@ -13,6 +14,7 @@
   border-left: 4px solid #26a1ff;
 }
 
+/* header */
 .title {
   margin: 2rem 0 0.5rem 0;
   font-size: 2rem;
@@ -37,7 +39,7 @@
   background-color: #fff5f6;
   padding: 2rem;
 }
-
+/* form */
 .question_root{
   widows: 100%;
   margin-top: 1rem;
@@ -51,50 +53,8 @@
 .question_root:hover{
   border-left: 4px solid #26a1ff;
 }
-.question_title{
-  border: none;
-  font-size: 1rem;
-  border-bottom: 2px solid #b5b5b5;
-  min-width: 90%;
-}
-.title_wrapper{
-  padding: 1rem;
-  flex: 0.9;
-}
-.blue {
-  color: #26a1ff;
-  cursor: pointer;
-}
-.short {
-  margin-top: 0.5rem;
-  width: 60%;
-  border: none;
-  font-size: 1rem;
-  border-bottom: 2px solid #b5b5b5;
-}
-.select_wrapper{
-  flex: 1;
-  width: 15rem;
-}
-.select{
-  border: none;
-  font-size: 1rem;
-  padding: 0.5rem;
-  border: 2px solid #b5b5b5;
-  border-radius: 0.25rem;
-}
-.option{
-  margin-top: 1rem;
-}
-.option_text{
-  margin-top: 1rem;
-  margin-left: 1rem;
-  width: 50%;
-  border: none;
-  font-size: 1rem;
-  border-bottom: 2px solid #b5b5b5;
-}
-.option_item{
-  margin-left: 1rem;
-  cursor: pointer;
+input[type=text]
+{
+  border:none;
+  border-bottom: 1px solid lightgray;
 }
