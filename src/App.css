@@ -58,3 +58,10 @@ input[type=text]
   border:none;
   border-bottom: 1px solid lightgray;
 }
+.short {
+  margin-top: 0.5rem;
+  width: 60%;
+  border: none;
+  font-size: 1rem;
+  border-bottom: 2px solid #b5b5b5;
+}

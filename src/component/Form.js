@@ -7,16 +7,31 @@ class QuestionForm extends React.Component{
         this.state={
             question:'',
             selection:'',
-            shortAnswer:'',
-            multiple:'',
-            checkbox:'',
+            multiple:[],
         }
     }
     handleChange=(e)=>{
         this.setState({[e.target.name]:e.target.value})
     }
+    handleAddmultiple=()=>{
+        this.setState({multiple:[...this.state.multiple,'']})
+    }
     render(){
         console.log('state value',this.state)
+        let multiple=this.state.selection==='multiple'&& this.state.multiple.map((item, i) => {  
+            return(
+                <div key={i}>
+                    <Form.Check inline name='radio1' type='radio'/><input type='text' placeholder='Option 1' /><br/>
+               </div>
+            )
+        })
+        let checkbox=this.state.selection==='checkbox'&&this.state.multiple.map((item, i) => {
+            return(
+                <div key={i}>
+                    <Form.Check inline name='radio1' type='checkbox' /><input type='text' className='option_item' placeholder='Option 1'/><br/>
+                </div>
+            )
+        })
         return(
             <div className='question_root'>
                 <Container>
@@ -47,61 +62,49 @@ class QuestionForm extends React.Component{
                             </Col>
                         </Row>
                         {
-                            (this.state.selection=='shortAnswer')?(
+                            (this.state.selection==='shortAnswer')?(
                                 <div>
                                     <Row>
-                                        <Col md={8}>
-                                            <Form.Group controlId='formBasicShortAnswer'>
-                                                <Form.Control 
-                                                    type='text' 
-                                                    name='shortAnswer'
-                                                    value={this.state.shortAnswer} 
-                                                    onChange={this.handleChange} 
-                                                    placeholder='Short answer text' 
-                                                    size='lg'
-                                                />
-                                            </Form.Group>
-                                        </Col>
+                                        <Form.Group controlId='formBasicShortAnswer'>
+                                            <Form.Control 
+                                                type='text' 
+                                                name='shortAnswer'
+                                                className='short'
+                                                value={this.state.shortAnswer} 
+                                                onChange={this.handleChange} 
+                                                placeholder='Short answer text' 
+                                                size='lg'
+                                            />
+                                        </Form.Group>
                                     </Row>
                                     
                                 </div>
-                            ):(this.state.selection=='multiple')?(
+                            ):(this.state.selection==='multiple')?(
                             <div>
                                 <Form.Group controlId='formBasicMultiple'>
-                                    <Form.Check inline name='radio1' type='radio'/><input type='text'  name='multiple' placeholder='Option 1' value={this.state.multiple} onChange={this.handleChange}/><br/>
-                                    <Form.Check inline type='radio' name='radio1'/>
-                                    <span 
-                                        onClick={this.addSameOption} 
-                                        tabIndex={-1} 
-                                        role="button"
-                                    > Add option or</span>
-                                    <span style={{color:"blue"}}
-                                        onClick={this.addTextOption}
-                                        tabIndex={-2}
-                                        role="button"
-                                    >
-                                        &nbsp;add &quot;Other&quot;
-                                    </span>
+                                    <Form.Check inline name='radio1' type='radio'/><input type='text' placeholder='Option 1' /><br/>
+                                    {multiple}
+                                    {
+                                        this.state.selection==='multiple' && this.state.multiple.length<4?(<span style={{color:'blue'}}
+                                            onClick={this.handleAddmultiple}  
+                                            role="button"
+                                        > Add option or add Other</span>):''
+                                    }
                                 </Form.Group> 
                             </div>
-                            ):(this.state.selection=='checkbox')?(
+                            ):(this.state.selection==='checkbox')?(
                                 <div>
                                    <Form.Group controlId='formBasicCheckbox'>
-                                        <Form.Check inline name='radio1' type='checkbox' /><input type='text' className='option_item' name='checkbox' placeholder='Option 1' value={this.state.checkbox} onChange={this.handleChange}/><br/>
-                                        <Form.Check inline type='checkbox' name='radio1' />
-                                        <span 
-                                            onClick={this.addSameOption} 
-                                            tabIndex={-1} 
-                                            role="button"
-                                        > Add option or</span>
-                                        <span style={{color:"blue"}}
-                                            onClick={this.addTextOption}
-                                            tabIndex={-2}
-                                            role="button"
-                                        >
-                                            {" "}
-                                            add &quot;Other&quot;
-                                        </span>
+                                        <Form.Check inline name='radio1' type='checkbox' /><input type='text' className='option_item' placeholder='Option 1'/><br/>
+                                        {checkbox}
+                                        {
+                                            this.state.selection==='checkbox' && this.state.multiple.length<4?(
+                                                <span style={{color:'blue'}}
+                                                    onClick={this.handleAddmultiple}  
+                                                    role="button"
+                                                > Add option or add Other</span>
+                                            ):''
+                                        }
                                     </Form.Group> 
                                 </div>
                             ):''
